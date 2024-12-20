@@ -17,21 +17,31 @@ import random
 ## After Edits with Timer Bar
 
 
-selections = [
-    "▁▄▂▇▄▅▄▅▃",
-    "▁▃▇▂▅▇▄▅▃",
-    "▃▁▇▂▅▃▄▃▅",
-    "▃▄▂▄▇▅▃▅▁",
-    "▁▃▄▂▇▃▄▅▃",
-    "▃▁▄▂▅▃▇▃▅",
-    "▁▇▄▂▅▄▅▃▄",
-    "▁▃▅▇▂▅▄▃▇",
-    "▃▅▂▅▇▁▄▃▁",
-    "▇▅▂▅▃▄▃▁▃",
-    "▃▇▂▅▁▅▄▃▁",
-    "▅▄▇▂▅▂▄▇▁",
-    "▃▅▂▅▃▇▄▅▃",
-]
+def stream_markup_timer(_, chat_id, played, dur):
+    played_sec = time_to_seconds(played)
+    duration_sec = time_to_seconds(dur)
+    percentage = (played_sec / duration_sec) * 100
+    umm = math.floor(percentage)
+    if 0 < umm <= 10:
+        bar = "─▷─────────"
+    elif 10 < umm < 20:
+        bar = "──▷────────"
+    elif 20 <= umm < 30:
+        bar = "───▷───────"
+    elif 30 <= umm < 40:
+        bar = "────▷──────"
+    elif 40 <= umm < 50:
+        bar = "─────▷─────"
+    elif 50 <= umm < 60:
+        bar = "──────▷────"
+    elif 60 <= umm < 70:
+        bar = "───────▷───"
+    elif 70 <= umm < 80:
+        bar = "────────▷──"
+    elif 80 <= umm < 95:
+        bar = "─────────▷─"
+    else:
+        bar = "──────────▷"
 
 
 ## After Edits with Timer Bar
@@ -50,21 +60,20 @@ def stream_markup_timer(_, videoid, chat_id, played, dur):
             InlineKeyboardButton(
                 text=_["PL_B_2"],
                 callback_data=f"add_playlist {videoid}",
-            ),
-            InlineKeyboardButton(text="𝖮𝗐𝗇𝖾𝗋", url=f"https://t.me/Jankari_Ki_Duniya"),
+            )
         ],
         [
             InlineKeyboardButton(
                 text=_["PL_B_3"],
                 callback_data=f"PanelMarkup {videoid}|{chat_id}",
-            ),
-            InlineKeyboardButton(text="𝖲𝗎𝗉𝗉𝗈𝗋𝗍 💬", url=SUPPORT_GROUP),
+            )
         ],
         [
             InlineKeyboardButton(
                 text=f"𝖴𝗉𝖽𝖺𝗍𝖾𝗌 📢",
                 url=SUPPORT_CHANNEL,
-            )
+            ),
+             InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data="close"),
         ],
     ]
     return buttons
@@ -83,15 +92,14 @@ def telegram_markup_timer(_, videoid, chat_id, played, dur):
             InlineKeyboardButton(
                 text=_["PL_B_2"],
                 callback_data=f"add_playlist {videoid}",
-            ),
-            InlineKeyboardButton(text="𝖮𝗐𝗇𝖾𝗋", url=f"https://t.me/Jankari_Ki_Duniya"),
+            )
         ],
         [
             InlineKeyboardButton(
                 text=_["PL_B_3"],
                 callback_data=f"PanelMarkup None|{chat_id}",
             ),
-            InlineKeyboardButton(text="𝖲𝗎𝗉𝗉𝗈𝗋𝗍 💬", url=SUPPORT_GROUP),
+            InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data="close"),
         ],
     ]
     return buttons
@@ -107,14 +115,14 @@ def stream_markup(_, videoid, chat_id):
                 text=_["PL_B_2"],
                 callback_data=f"add_playlist {videoid}",
             ),
-            InlineKeyboardButton(text="𝖮𝗐𝗇𝖾𝗋", url=f"https://t.me/Jankari_Ki_Duniya"),
+            InlineKeyboardButton(text="S-V-D", url=f"https://t.me/we_are_universee"),
         ],
         [
             InlineKeyboardButton(
                 text=_["PL_B_3"],
                 callback_data=f"PanelMarkup None|{chat_id}",
             ),
-            InlineKeyboardButton(text="𝖲𝗎𝗉𝗉𝗈𝗋𝗍 💬", url=SUPPORT_GROUP),
+             InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data="close"),
         ],
     ]
     return buttons
