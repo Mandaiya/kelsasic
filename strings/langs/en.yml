@@ -5,7 +5,7 @@ general_1 : "Hi - Respond to a user's message or supply their username or user I
 general_2 : "Tata - Error AREA51! \nIncorrect usage of the command..."
 general_3 : "An exception occurred while processing your query. : {0}</code>"
 general_4 : "You are currently an anonymous admin in this chat group.Please revert to a user account from admin privileges.."
-general_5 : "You must be an admin with "Manage Voice Chat" permissions to perform this action. Refresh the admin cache using the command: /reload."
+general_5 : "You must be an admin with **Manage Voice Chat** permissions to perform this action. Refresh the admin cache using the command: /reload."
 general_6 : "The bot is not currently streaming on the voice chat. ."
 
 # Classes - Telegram.py
