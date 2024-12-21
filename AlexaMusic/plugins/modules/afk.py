@@ -3,7 +3,6 @@ import time
 from pyrogram import filters
 from pyrogram.types import Message
 
-from ... import app, gen
 
 app.CMD_HELP.update(
     {
