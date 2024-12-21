@@ -1,4 +1,4 @@
-from pyrogram import Client, enums, filters
+from pyrogram import Client, filters
 import random
 from AlexaMusic import app as app
 
@@ -19,11 +19,11 @@ async def roll_dice_and_calculate_score(user_id, emoji, message):
 
     # Determine if user won or lost
     if dice_value >= target_score:
-        # Win: Add point
-        user_scores[user_id] = user_scores.get(user_id, 0) + 1
+        # Win: Add 3 points
+        user_scores[user_id] = user_scores.get(user_id, 0) + 3
         result_text = f"Congratulations {message.from_user.mention}, you won this round! Your score is: {user_scores[user_id]}\n Target Score = 50"
     else:
-        # Lose: Deduct point
+        # Lose: Deduct 1 point
         user_scores[user_id] = user_scores.get(user_id, 0) - 1
         result_text = f"Sorry {message.from_user.mention}, you lost this round. Your score is: {user_scores[user_id]}\n Target Score = 50"
     
@@ -82,15 +82,21 @@ async def leaderboard(bot, message):
 # Game instructions
 __help__ = """
 Play Game With Emojis:
-- /dice - Dice 🎲
-- /dart - Dart 🎯
-- /basket - Basket Ball 🏀
-- /ball - Bowling Ball 🎳
-- /football - Football ⚽
-- /jackpot - Spin slot machine 🎰
+- /dice - Dice 🎲: Roll the dice and try to match or exceed the target score.
+- /dart - Dart 🎯: Roll the dice and try to match or exceed the target score.
+- /basket - Basket Ball 🏀: Roll the dice and try to match or exceed the target score.
+- /ball - Bowling Ball 🎳: Roll the dice and try to match or exceed the target score.
+- /football - Football ⚽: Roll the dice and try to match or exceed the target score.
+- /jackpot - Spin slot machine 🎰: Roll the dice and try to match or exceed the target score.
+
+Scoring System:
+- Win: If your dice roll is equal to or higher than the target score, you win and earn 3 points.
+- Lose: If your dice roll is lower than the target score, you lose and lose 1 point.
+- If your score reaches or exceeds 50 points, you win the game and your score will reset to 0.
+- If your score goes below -50 points, you lose all your points and the game ends.
 
 Commands to track progress:
-- /leaderboard - Show the leaderboard
+- /leaderboard - Show the leaderboard of top players.
 """
 
 __mod_name__ = "Dɪᴄᴇgame"
