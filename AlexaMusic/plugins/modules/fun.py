@@ -2,7 +2,7 @@ import random
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from AlexaMusic import app
-from config import SUPPORT_CHAT
+from config import SUPPORT_GROUP
 
 BUTTON = [[InlineKeyboardButton("Universe Networks", url=f"https://t.me/we_are_universee")]]
 GAMER = "https://telegra.ph/file/bdc5c8e6e9445a5d5068e.mp4"
