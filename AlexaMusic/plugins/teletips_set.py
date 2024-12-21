@@ -11,6 +11,9 @@ import asyncio
 from plugins.teletips_t import *
 from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.raw.functions.messages import UpdatePinnedMessage
+from dotenv import load_dotenv
+
+load_dotenv()
 
 bot=Client(
     "Countdown-TeLeTiPs",
