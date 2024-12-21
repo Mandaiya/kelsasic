@@ -19,8 +19,8 @@ async def bat(bot, message):
     if user_id not in overs:
         overs[user_id] = 0
     
-    # Roll the dice with the cricket bat emoji 🏏
-    x = await bot.send_dice(chat_id, "🏏")
+    # Roll the dice with the cricket  emoji 🎲
+    x = await bot.send_dice(chat_id, "🎲")
     m = x.dice.value  # The number rolled by the dice
 
     # Initialize score and over count
@@ -68,7 +68,7 @@ async def leaderboard(bot, message):
 
 __help__ = """
 Play Cricket Game:
-- /bat - Bat 🏏 Roll the dice and score runs!
+- /bat - Bat 🎲 Roll the dice and score runs!
 - /leaderboard - Show the leaderboard
 """
 
