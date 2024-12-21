@@ -151,7 +151,7 @@ SOUNCLOUD_IMG_URL = getenv(
 
 YOUTUBE_IMG_URL = getenv(
     "YOUTUBE_IMG_URL",
-    "https://envs.sh/75c.jpg",
+    "assets/Youtubetg.jpeg",
 )
 
 SPOTIFY_ARTIST_IMG_URL = getenv(
@@ -161,12 +161,12 @@ SPOTIFY_ARTIST_IMG_URL = getenv(
 
 SPOTIFY_ALBUM_IMG_URL = getenv(
     "SPOTIFY_ALBUM_IMG_URL",
-    https://telegra.ph/file/9e05c8a1c60f2e7999a18.jpg",
+    "assets/SpotifyAlbum.jpeg",
 )
 
 SPOTIFY_PLAYLIST_IMG_URL = getenv(
     "SPOTIFY_PLAYLIST_IMG_URL",
-    "https://telegra.ph/file/9e05c8a1c60f2e7999a18.jpg",
+    "assets/SpotifyAlbum.jpeg",
 )
 
 
