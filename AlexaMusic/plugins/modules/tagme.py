@@ -36,9 +36,9 @@ async def tagme_handler(client, message: Message):
         #msg = await app.get_messages(message.chat.id, message.reply_to_message.message_id)
         #if msg is None:
             #return await message.reply("I cannot mention msgs sent before I was added in group")
-        return await message.reply("**Msg ah tag pannaatha..**\n\n/tagme **nu thaniya podunga | Dont tag the message or reply - if required you can /tagme - use this command**
+        return await message.reply("**Msg ah tag pannaatha..**\n\n/tagme **nu thaniya podunga | Dont tag the message or reply - if required you can /tagme - use this command**")
     else:
-        return await message.reply("**Msg ah tag pannaatha..**\n\n/tagme **nu thaniya podunga | Dont tag the message or reply - if required you can /tagme - use this command**
+        return await message.reply("**Msg ah tag pannaatha..**\n\n/tagme **nu thaniya podunga | Dont tag the message or reply - if required you can /tagme - use this command**")
               
     spam_chats.append(chat_id)
     usrnum = 0
