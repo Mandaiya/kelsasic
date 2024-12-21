@@ -37,7 +37,7 @@ TELETIPS_MAIN_MENU_BUTTONS = [
             ]
         ]
 
-@bot.on_message(filters.command(['start','help']) & filters.private)
+@bot.on_message(filters.command(['begin','save']) & filters.private)
 async def start(client, message):
     text = START_TEXT
     reply_markup = InlineKeyboardMarkup(TELETIPS_MAIN_MENU_BUTTONS)
