@@ -6,7 +6,7 @@ from AlexaMusic import app as app
 user_scores = {}
 
 # Target points for winning
-TARGET_POINTS = 30
+TARGET_POINTS = 50
 
 # Function to roll the dice and determine win/loss
 async def roll_dice_and_calculate_score(user_id, emoji, message):
@@ -21,11 +21,11 @@ async def roll_dice_and_calculate_score(user_id, emoji, message):
     if dice_value >= target_score:
         # Win: Add point
         user_scores[user_id] = user_scores.get(user_id, 0) + 1
-        result_text = f"Congratulations {message.from_user.mention}, you won this round! Your score is: {user_scores[user_id]}"
+        result_text = f"Congratulations {message.from_user.mention}, you won this round! Your score is: {user_scores[user_id]}\n Target Score = 50"
     else:
         # Lose: Deduct point
         user_scores[user_id] = user_scores.get(user_id, 0) - 1
-        result_text = f"Sorry {message.from_user.mention}, you lost this round. Your score is: {user_scores[user_id]}"
+        result_text = f"Sorry {message.from_user.mention}, you lost this round. Your score is: {user_scores[user_id]}\n Target Score = 50"
     
     # Check if user reached the target points
     if user_scores[user_id] >= TARGET_POINTS:
