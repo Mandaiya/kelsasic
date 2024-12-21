@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
-from AlexaMusic.plugins.tools.pretenderdb import impo_off, impo_on, check_pretender, add_userdata, get_userdata, usr_data
+from AlexaMusic.plugins.modules.pretenderdb import impo_off, impo_on, check_pretender, add_userdata, get_userdata, usr_data
 from AlexaMusic import app
 
 
