@@ -51,7 +51,7 @@ async def bat(bot, message):
         scores[user_id] = 0  # Reset score for next over
         overs[user_id] = 0   # Reset the over count
 
-@app.on_message(filters.command("leaderboard"))
+@app.on_message(filters.command("cricketscore"))
 async def leaderboard(bot, message):
     # Sort users by their score and display the top scorers
     leaderboard = sorted(scores.items(), key=lambda x: x[1], reverse=True)
@@ -69,7 +69,7 @@ async def leaderboard(bot, message):
 __help__ = """
 Play Cricket Game:
 - /bat - Bat 🎲 Roll the dice and score runs!
-- /leaderboard - Show the leaderboard
+- /cricketscore - Show the leaderboard
 """
 
 __mod_name__ = "Cʀɪᴄᴋᴇᴛ Gᴀᴍᴇ"
