@@ -250,7 +250,7 @@ async def gen_qthumb(videoid):
         )
         draw.text(
             (600, 550),
-            f"Owner : Jankari Ki Duniya",
+            f"Owner : Universe Networks",
             (255, 255, 255),
             font=arial,
         )
