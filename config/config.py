@@ -92,7 +92,7 @@ COOKIES = getenv("COOKIES", None)
 # config.py
 
 # Proxy rotation settings
-USE_PROXY = True  # Set to True to enable proxy use
+USE_PROXY = False  # Set to True to enable proxy use
 PROXY_LIST = [
     "http://160.86.242.23:8080",  # Replace with actual proxy addresses
     "http://101.32.14.101:1080",
