@@ -15,6 +15,7 @@ from random import randint
 from typing import Union
 
 from pyrogram.types import InlineKeyboardMarkup
+import aiohttp  # For asynchronous requests with proxy support
 
 import config
 from AlexaMusic import Carbon, YouTube, app
@@ -33,6 +34,17 @@ from AlexaMusic.utils.inline.playlist import close_markup
 from AlexaMusic.utils.pastebin import Alexabin
 from AlexaMusic.utils.stream.queue import put_queue, put_queue_index
 from AlexaMusic.utils.thumbnails import gen_thumb, gen_qthumb
+# Function to create proxy configuration for aiohttp requests
+async def get_proxy():
+    proxy = config.PROXY_URL  # Add your proxy URL here
+    return proxy
+
+# Function to make an async HTTP request with a proxy
+async def fetch_with_proxy(url: str):
+    proxy = await get_proxy()
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url, proxy=proxy) as response:
+            return await response.text()
 
 
 async def stream(
@@ -68,7 +80,7 @@ async def stream(
                     duration_sec,
                     thumbnail,
                     vidid,
-                ) = await YouTube.details(search, False if spotify else True)
+                ) = await YouTube.details(search, False if spotify else True, proxy=await get_proxy())
             except:
                 continue
             if str(duration_min) == "None":
@@ -97,7 +109,7 @@ async def stream(
                 status = True if video else None
                 try:
                     file_path, direct = await YouTube.download(
-                        vidid, mystic, video=status, videoid=True
+                        vidid, mystic, video=status, videoid=True, proxy=await get_proxy()
                     )
                 except:
                     raise AssistantErr(_["play_16"])
@@ -158,7 +170,7 @@ async def stream(
         status = True if video else None
         try:
             file_path, direct = await YouTube.download(
-                vidid, mystic, videoid=True, video=status
+                vidid, mystic, videoid=True, video=status, proxy=await get_proxy()
             )
         except:
             raise AssistantErr(_["play_16"])
