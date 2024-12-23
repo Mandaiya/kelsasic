@@ -94,9 +94,9 @@ COOKIES = getenv("COOKIES", None)
 # Proxy rotation settings
 USE_PROXY = True  # Set to True to enable proxy use
 PROXY_LIST = [
-    "http://proxy1.example.com:port",  # Replace with actual proxy addresses
-    "http://proxy2.example.com:port",
-    "http://proxy3.example.com:port",
+    "http://160.86.242.23:8080",  # Replace with actual proxy addresses
+    "http://101.32.14.101:1080",
+    "http://216.229.112.25:8080",
     # Add as many proxies as you want
 ]
 
