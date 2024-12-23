@@ -89,6 +89,20 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824"))
 COOKIES = getenv("COOKIES", None)
 # https://batbin.me
 
+# config.py
+
+# Proxy rotation settings
+USE_PROXY = True  # Set to True to enable proxy use
+PROXY_LIST = [
+    "http://proxy1.example.com:port",  # Replace with actual proxy addresses
+    "http://proxy2.example.com:port",
+    "http://proxy3.example.com:port",
+    # Add as many proxies as you want
+]
+
+# Time interval in seconds to rotate the proxy
+PROXY_ROTATE_INTERVAL = 60 * 5  # Rotate proxy every 5 minutes (adjust as needed)
+
 STRING1 = getenv("STRING_SESSION", None)
 STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
