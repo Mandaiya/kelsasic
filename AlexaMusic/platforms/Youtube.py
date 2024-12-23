@@ -33,11 +33,12 @@ def cookiefile():
     return cookie_file
 
 
-async def shell_cmd(cmd):
+async def shell_cmd(cmd, proxy=None):
     proc = await asyncio.create_subprocess_shell(
         cmd,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
+        env={'HTTP_PROXY': proxy, 'HTTPS_PROXY': proxy} if proxy else None
     )
     out, errorz = await proc.communicate()
     if errorz:
@@ -56,7 +57,7 @@ class YouTubeAPI:
         self.listbase = "https://youtube.com/playlist?list="
         self.reg = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
-    async def exists(self, link: str, videoid: Union[bool, str] = None):
+    async def exists(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if re.search(self.regex, link):
@@ -88,7 +89,7 @@ class YouTubeAPI:
             return None
         return text[offset : offset + length]
 
-    async def details(self, link: str, videoid: Union[bool, str] = None):
+    async def details(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -105,7 +106,7 @@ class YouTubeAPI:
                 duration_sec = int(time_to_seconds(duration_min))
         return title, duration_min, duration_sec, thumbnail, vidid
 
-    async def title(self, link: str, videoid: Union[bool, str] = None):
+    async def title(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -115,7 +116,7 @@ class YouTubeAPI:
             title = result["title"]
         return title
 
-    async def duration(self, link: str, videoid: Union[bool, str] = None):
+    async def duration(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -125,7 +126,7 @@ class YouTubeAPI:
             duration = result["duration"]
         return duration
 
-    async def thumbnail(self, link: str, videoid: Union[bool, str] = None):
+    async def thumbnail(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -135,7 +136,7 @@ class YouTubeAPI:
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
         return thumbnail
 
-    async def video(self, link: str, videoid: Union[bool, str] = None):
+    async def video(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -150,6 +151,7 @@ class YouTubeAPI:
             f"{link}",
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            env={'HTTP_PROXY': proxy, 'HTTPS_PROXY': proxy} if proxy else None
         )
         stdout, stderr = await proc.communicate()
         if stdout:
@@ -157,7 +159,7 @@ class YouTubeAPI:
         else:
             return 0, stderr.decode()
 
-    async def playlist(self, link, limit, user_id, videoid: Union[bool, str] = None):
+    async def playlist(self, link, limit, user_id, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.listbase + link
         if "&" in link:
@@ -167,14 +169,14 @@ class YouTubeAPI:
             f"--get-id --flat-playlist --playlist-end {limit} --skip-download '{link}' "
             f"2>/dev/null"
         )
-        playlist = await shell_cmd(cmd)
+        playlist = await shell_cmd(cmd, proxy)
         try:
             result = [key for key in playlist.split("\n") if key]
         except:
             result = []
         return result
 
-    async def track(self, link: str, videoid: Union[bool, str] = None):
+    async def track(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -196,7 +198,7 @@ class YouTubeAPI:
         }
         return track_details, vidid
 
-    async def formats(self, link: str, videoid: Union[bool, str] = None):
+    async def formats(self, link: str, videoid: Union[bool, str] = None, proxy=None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -237,7 +239,7 @@ class YouTubeAPI:
         self,
         link: str,
         query_type: int,
-        videoid: Union[bool, str] = None,
+        videoid: Union[bool, str] = None, proxy=None,
     ):
         if videoid:
             link = self.base + link
@@ -275,6 +277,7 @@ class YouTubeAPI:
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
+                "proxy": proxy,
             }
             x = YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
@@ -293,6 +296,7 @@ class YouTubeAPI:
                 "nocheckcertificate": True,
                 "quiet": True,
                 "no_warnings": True,
+                "proxy": proxy,
             }
             x = YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
@@ -315,6 +319,7 @@ class YouTubeAPI:
                 "cookiefile": cookiefile(),
                 "prefer_ffmpeg": True,
                 "merge_output_format": "mp4",
+                "proxy": proxy,
             }
             x = YoutubeDL(ydl_optssx)
             x.download([link])
@@ -335,6 +340,7 @@ class YouTubeAPI:
                         "key": "FFmpegExtractAudio",
                         "preferredcodec": "mp3",
                         "preferredquality": "192",
+                        "proxy": proxy,
                     }
                 ],
             }
@@ -364,6 +370,30 @@ class YouTubeAPI:
                     f"{link}",
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
+                    env={'HTTP_PROXY': proxy, 'HTTPS_PROXY': proxy} if proxy else None
+                )
+                stdout, stderr = await proc.communicate()
+                if stdout:
+                    direct = False
+                    downloaded_file = stdout.decode().split("\n")[0]
+            return downloaded_file
+
+        elif audio:
+            if await is_on_off(1):
+                direct = True
+                downloaded_file = await loop.run_in_executor(None, audio_dl)
+            else:
+                proc = await asyncio.create_subprocess_exec(
+                    "yt-dlp",
+                    "--cookies",
+                    cookiefile(),
+                    "-g",
+                    "-f",
+                    "bestaudio",
+                    f"{link}",
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE,
+                    env={'HTTP_PROXY': proxy, 'HTTPS_PROXY': proxy} if proxy else None
                 )
                 stdout, stderr = await proc.communicate()
                 if stdout:
