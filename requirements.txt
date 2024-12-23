@@ -12,7 +12,7 @@ motor==3.6.0
 ntgcalls
 pillow
 psutil
-py-tgcalls==2.0.6
+py-tgcalls==0.9.7
 pykeyboard
 pyrofork
 python-dotenv
